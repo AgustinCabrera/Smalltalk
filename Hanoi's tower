@@ -1,0 +1,16 @@
+hanoi: n from: source to: destination using: temp
+	"Recursively solve the Hanoi Towers puzzle for n disks, moving them from the source peg to the destination peg using the temporary peg"
+
+	n = 1 ifTrue: [
+		"If there is only one disk, move it directly from the source to the destination peg"
+		^ self move: source to: destination
+	].
+
+	"Otherwise, move the top n-1 disks from the source peg to the temporary peg using the destination peg as temporary storage"
+	self hanoi: n-1 from: source to: temp using: destination.
+
+	"Then move the bottom disk from the source peg to the destination peg"
+	self move: source to: destination.
+
+	"Finally, move the n-1 disks that were on the temporary peg back to the destination peg using the source peg as temporary storage"
+	self hanoi: n-1 from: temp to: destination using: source.
